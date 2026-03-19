@@ -1,0 +1,28 @@
+# ─── pointcloud_to_laserscan — Unitree G1 / Livox Mid360 ──────────────────────
+#
+# target_frame: livox_frame
+#   Projects points directly in the sensor frame — no additional TF lookup.
+#   The livox_frame has 180 deg roll relative to mid360_link (sensor mounted
+#   upside-down), but since we project in the sensor's own frame this is
+#   transparent. slam_toolbox resolves the full pose via TF:
+#     livox_frame -> mid360_link -> torso_link -> ... -> base_link -> odom
+#
+# Values based on the original working configuration on the robot.
+
+pc_to_ls:
+  ros__parameters:
+    target_frame: livox_frame
+    transform_tolerance: 0.5
+
+    min_height: -1.0
+    max_height:  1.0
+
+    angle_min:        -3.1415
+    angle_max:         3.1415
+    angle_increment:   0.0087   # ~0.5 deg
+    scan_time:         0.1      # 10 Hz
+    range_min:         0.3
+    range_max:        50.0
+
+    use_inf:     true
+    inf_epsilon: 1.0
